@@ -1,3 +1,5 @@
+package d4;
+
 import java.util.*;
 public class t2
 {/*
@@ -7,12 +9,13 @@ public class t2
 3）输出数组中的所有偶数。
 */
 
+
     public static void main(String[] args) {
         int []arr=new int[10];
         Random r=new Random();
         for (int i=0;i<10;i++)
         {
-            arr[i]=r.nextInt(100);
+            arr[i]=1+r.nextInt(99);
         }
         for (int i = 0; i < 10; i++) {
             if (arr[i]%2==0)

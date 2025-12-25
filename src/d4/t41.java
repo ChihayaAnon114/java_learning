@@ -1,5 +1,7 @@
+package d4;
+
 import java.util.Scanner;
-public class t4 {
+public class t41 {
     /*
     数组的应用
     1)声明一个double类型的数组，用来存储员工的工资

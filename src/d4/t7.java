@@ -1,3 +1,5 @@
+package d4;
+
 import java.util.Random;
 public class t7 {
     /*

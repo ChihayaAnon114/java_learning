@@ -1,3 +1,5 @@
+package d4;
+
 import java.util.Scanner;
 import static java.lang.Float.parseFloat;
 public class t5 {

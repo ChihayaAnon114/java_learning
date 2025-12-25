@@ -1,3 +1,5 @@
+package d4;
+
 import java.util.Scanner;
 public class t1 {
     /*
@@ -15,5 +17,6 @@ public class t1 {
         }
         for(int i=0;i<5;i++)
             System.out.println(arr[i]);
+        demo1.a1(2);
     }
 }

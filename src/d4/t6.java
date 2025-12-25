@@ -1,3 +1,5 @@
+package d4;
+
 import java.util.Scanner;
 public class t6 {
     /*

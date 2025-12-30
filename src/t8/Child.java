@@ -1,8 +1,7 @@
 package t8;
 
-import sun.dc.pr.PRError;
-
-public class Child implements IPearson{
+public class Child extends User
+        implements IPearson{
     /*
     3、创建类Child（儿童类，儿童的年龄在3-6岁之间），实现IPerson接口，包含如下成员：
     1）private属性：chdName, chdAge, chdSex
@@ -28,5 +27,12 @@ public class Child implements IPearson{
     }
     public String getSex(){
         return chdSex;
+    }
+
+    public Child(String chdName, String chdSex, int chdAge) {
+        super();
+        this.chdName = chdName;
+        this.chdSex = chdSex;
+        this.chdAge = chdAge;
     }
 }

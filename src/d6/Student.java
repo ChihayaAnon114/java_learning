@@ -12,7 +12,19 @@ public class Student {
         private My_date birthday;
         My_date default_birthday=new My_date(1990,4,10);
 
-public void show(){
+        public Student(String n, String g, int y, int m, int d) {
+                name = n;
+                gender=g;
+                birthday= new My_date(y,m,d);
+        }
+
+        public Student() {
+                name = "未知";
+                gender="未知";
+                birthday= new My_date(2025,1,1);
+        }
+
+        public void show(){
     System.out.println("student message: name:"+this.name+" gender:"+this.gender+" birthday:"+birthday.showDate());
-}
+        }
 }

@@ -12,16 +12,8 @@ public class Student {
     private String name;
     private String gender;
     private M_date birthday;
-    public Student(){
         M_date default_birthday=new M_date(1990,4,10);
-        this.name="新同学";
-        this.gender="未知";
-        this.birthday=default_birthday;
     }
-    public Student(String n,String g,int y,int m,int d){
-        this.name=n;
-        this.gender=g;
-        this.birthday=new M_date(y,m,d);
     }
     public void show(){
         System.out.println("student message: name:"+this.name+" gender:"+this.gender+" birthday:"+birthday.showDate());

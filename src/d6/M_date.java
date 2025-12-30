@@ -11,10 +11,8 @@ public class M_date {
     private int year;
     private int month;
     private int day;
-    public M_date(){
         year=2025;month=12;day=27;
     }
-    public M_date(int y,int m,int d){
         year=y;month=m;day=d;
     }
     public String showDate()

@@ -21,4 +21,7 @@ public class TestBankCard {
     透支额度可以增加500，每次循环结束询问是否继续，直到不想继续结束。显示出该卡目前的余额和透支额度。
     如果选择无效卡片，则提出相应的提示信息
      */
+    public static void main(String[] args) {
+
+    }
 }

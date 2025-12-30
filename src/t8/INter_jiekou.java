@@ -9,3 +9,8 @@ public abstract interface INter_jiekou {
     //变量必须是public final static
 }
 //在调用接口的时候需要+implement （接口）
+
+//字符串：
+/*
+
+ */

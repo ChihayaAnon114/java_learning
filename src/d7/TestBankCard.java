@@ -22,6 +22,8 @@ public class TestBankCard {
     如果选择无效卡片，则提出相应的提示信息
      */
     public static void main(String[] args) {
+        Date date=new Date();
+        DebitCard card=new DebitCard(date,"未知");
 
     }
 }

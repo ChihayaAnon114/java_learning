@@ -27,8 +27,17 @@ public class Student extends User
     public String getSex(){
         return stuSex;
     }
-    Student(String Name, String Sex, int Age){
+    public Student(String Name, String Sex, int Age){
         super();
         setAge(Age);setName(Name);setSex(Sex);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "stuName='" + stuName + '\'' +
+                ", stuSex='" + stuSex + '\'' +
+                ", stuAge=" + stuAge +
+                '}';
     }
 }

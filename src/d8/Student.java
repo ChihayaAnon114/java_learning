@@ -1,4 +1,4 @@
-package t8;
+package d8;
 /*
     4、创建类Student(学生类，学生的年龄在7-18岁之间)，实现IPerson接口，包含如下成员：
     1）private属性：stuName,stuAge,stuSex

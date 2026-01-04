@@ -1,4 +1,4 @@
-package t8;
+package d8;
 import java.util.Scanner;
 /*
 //    6、创建类Test，包含主方法

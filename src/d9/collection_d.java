@@ -1,9 +1,9 @@
-package t9;
+package d9;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import t8.*;
+import d8.*;
 public class collection_d {
     public static void main(String[] args) {
         Collection c1 = null;

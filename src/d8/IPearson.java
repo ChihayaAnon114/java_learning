@@ -1,4 +1,4 @@
-package t8;
+package d8;
 
 public interface IPearson {
     /* 2、创建接口IPerson，包含如下抽象方法

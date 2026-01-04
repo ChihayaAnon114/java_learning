@@ -1,4 +1,4 @@
-package t9;
+package d9;
 
 public class package_ {
     public static void main(String[] args) {

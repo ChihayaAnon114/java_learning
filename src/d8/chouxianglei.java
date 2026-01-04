@@ -1,4 +1,4 @@
-package t8;
+package d8;
 
 public abstract class chouxianglei {
     //抽象类

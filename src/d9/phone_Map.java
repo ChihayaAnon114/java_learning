@@ -1,6 +1,5 @@
-package t9;
+package d9;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 

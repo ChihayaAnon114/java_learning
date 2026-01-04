@@ -1,4 +1,4 @@
-package t8;
+package d8;
 
 public abstract interface INter_jiekou {
     void send();

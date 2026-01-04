@@ -1,4 +1,4 @@
-package t9;
+package d9;
 import java.util.ArrayList;
 import java.util.Scanner;
 

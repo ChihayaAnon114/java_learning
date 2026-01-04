@@ -3,7 +3,8 @@ collection无序，无索引
 2,map->hashmap
 
     List:
-         特性,ArrayList (数组列表)        ,LinkedList (链表)
+      特性    ArrayList (数组列表)        ,LinkedList (链表)
+            索引值0-size()-1, 可以重复，可变
       底层实现,动态数组 (连续内存)          ,双向链表 (节点指针连接)
       访问速度,快 O(1) (支持按索引直达)     ,慢 O(n) (需从头遍历)
       增删速度,慢 (中间增删需移动后面所有元素),快 (只需改变指针指向)
@@ -27,7 +28,7 @@ collection无序，无索引
     Set 特点是不允许元素重复。
     HashSet: 最常用。无序，速度最快（基于哈希表）。
     TreeSet: 有序（默认升序）。速度稍慢，但能自动排序。
-    set.add(E e);           // 添加元素 (如果已存在，返回false)
+    set.add();           // 添加元素 (如果已存在，返回false)
     set.remove(Object o);   // 删除元素
     set.contains(Object o); // 判断是否存在 (速度极快)
     set.size();             // 获取大小

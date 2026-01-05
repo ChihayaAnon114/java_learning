@@ -88,24 +88,26 @@ public class DbUtils {
     }
 
     public static void printQuery(Connection conn, String sql,int limit) throws SQLException {
-        try (Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-
+        //输出表
+        try (Statement st = conn.createStatement();//用于打开发送指令的窗口。
+             ResultSet rs = st.executeQuery(sql)) //用于存储原始数据表格查询结果到rs变量
+        {
             ResultSetMetaData md = rs.getMetaData();
             int cols = md.getColumnCount();
             for (int i = 1; i <= cols; i++) {
-                System.out.print(md.getColumnLabel(i));
+                System.out.print(md.getColumnLabel(i));//用于使用具体方法取出具体数据，列或者行名等
                 if (i < cols) System.out.print("\t");
             }
             System.out.println();
-            for (int i = 1; i <= cols; i++) {
-                System.out.print("--------");
-                if (i < cols) System.out.print("\t");
-            }
+//            for (int i = 1; i <= cols; i++) {
+//                System.out.print("--------");
+//                if (i < cols) System.out.print("\t");
+//            }
             System.out.println();
             while (rs.next()) {
                 for (int i = 1; i <= limit; i++) {
-                    Object val = rs.getObject(i);
+                    Object val = rs.getObject(i);//rs是表内的具体数据
+                    //rs是一个引用类对象，本质上是一个指针，而这里的val则是从指针引用中取出了当前数据原始值
                     System.out.print(val == null ? "NULL" : val.toString());
                     if (i < cols) System.out.print("\t");
                 }
@@ -126,7 +128,7 @@ public class DbUtils {
     }
     public static boolean existsById(Connection conn, String tableName, int id)
             throws SQLException {
-    //判断是否存在某数据
+        //判断是否存在某数据
         String sql = "SELECT 1 FROM " + tableName + " WHERE id = " + id + " LIMIT 1";
         try (Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(sql)) {

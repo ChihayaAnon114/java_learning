@@ -1,0 +1,122 @@
+package d11;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class DbUtils {
+    /**
+     * 获取Connection对象
+     */
+    public static Connection connectToDB(String className, String url, String user, String psw){
+        //直接连接数据库
+        Connection conn = null;
+        try {
+            //加载jdbc驱动
+            Class.forName(className);
+            conn = DriverManager.getConnection(url,
+                    user,
+                    psw);
+            if(conn!=null){
+                System.out.println("CONNECTED");
+            }
+            else System.out.println("connection failed");
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return conn;
+    }
+
+    public static void visualiseDB(Connection conn){
+
+    }
+
+    public static void operateDB(Connection conn, String sql){
+        //用于手动输入数据来执行数据库操作
+        try (PreparedStatement pmst = conn.prepareStatement(sql)) {
+            int res = pmst.executeUpdate();
+            if (res > 0) {
+                System.out.println(" add success");//检验操作是否完成
+
+            }else System.out.println("add failed");
+        } catch (SQLException e) {
+            System.out.println("异常:" + e.getMessage());//当出现任何异常
+        }
+    }
+    public static void connClose(Connection conn){
+        //关闭连接
+        try {
+            conn.close();
+            System.out.println("connect closed");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+/*
+    public static void printQuery(Connection conn, String sql) throws SQLException {
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            ResultSetMetaData md = rs.getMetaData();
+            int cols = md.getColumnCount();
+
+            // 打印表头
+            for (int i = 1; i <= cols; i++) {
+                System.out.print(md.getColumnLabel(i));
+                if (i < cols) System.out.print("\t");
+            }
+            System.out.println();
+
+            for (int i = 1; i <= cols; i++) {
+                System.out.print("--------");
+                if (i < cols) System.out.print("\t");
+            }
+            System.out.println();
+
+            // 打印数据
+            while (rs.next()) {
+                for (int i = 1; i <= cols; i++) {
+                    Object val = rs.getObject(i);
+                    System.out.print(val == null ? "NULL" : val.toString());
+                    if (i < cols) System.out.print("\t");
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    public static void printQuery(Connection conn, String sql,int limit) throws SQLException {
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            ResultSetMetaData md = rs.getMetaData();
+            int cols = md.getColumnCount();
+            for (int i = 1; i <= cols; i++) {
+                System.out.print(md.getColumnLabel(i));
+                if (i < cols) System.out.print("\t");
+            }
+            System.out.println();
+            for (int i = 1; i <= cols; i++) {
+                System.out.print("--------");
+                if (i < cols) System.out.print("\t");
+            }
+            System.out.println();
+            while (rs.next()) {
+                for (int i = 1; i <= limit; i++) {
+                    Object val = rs.getObject(i);
+                    System.out.print(val == null ? "NULL" : val.toString());
+                    if (i < cols) System.out.print("\t");
+                }
+                System.out.println();
+            }
+        }
+    }
+ */
+
+    public static void main(String[] args) {
+        Connection conn= connectToDB("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8","root","root");
+        operateDB(conn,"insert into tb_user values(default,'abc','10086',now())");
+    }//无效的
+}

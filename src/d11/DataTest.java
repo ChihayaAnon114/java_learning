@@ -32,12 +32,13 @@ public class DataTest {
     public static void main(String[] args) throws SQLException {
         //随机生成50条记录
         Connection conn= connectToDB("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8","root","root");
+        clearTable(conn,"tb_user");
         for (int i = 0; i < 50; i++) {
             String sql=null;
             sql="insert into tb_user values(default,'"+randomLetters(5)+"','"+randomNums(10)+"',now())";
             operateDB(conn,sql);
-
         }
+        printQuery(conn,"SELECT * FROM tb_user");
 
         connClose(conn);
     }

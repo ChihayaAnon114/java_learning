@@ -54,7 +54,7 @@ public class DbUtils {
         }
     }
 
-/*
+
     public static void printQuery(Connection conn, String sql) throws SQLException {
         try (Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
@@ -113,7 +113,36 @@ public class DbUtils {
             }
         }
     }
- */
+
+    public static void dropTable(Connection conn, String tableName) throws SQLException {
+        //删除表
+        String sql = "DROP TABLE " + tableName;
+        operateDB(conn, sql);
+    }
+    public static void clearTable(Connection conn, String tableName) throws SQLException {
+        //清空表
+        String sql = "DELETE FROM " + tableName;
+        operateDB(conn, sql);
+    }
+    public static boolean existsById(Connection conn, String tableName, int id)
+            throws SQLException {
+    //判断是否存在某数据
+        String sql = "SELECT 1 FROM " + tableName + " WHERE id = " + id + " LIMIT 1";
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            return rs.next();
+        }
+    }
+
+    public static int count(Connection conn, String tableName) throws SQLException {
+        //返回记录条数
+        String sql = "SELECT COUNT(*) FROM " + tableName;
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            rs.next();
+            return rs.getInt(1);
+        }
+    }
 
     public static void main(String[] args) {
         Connection conn= connectToDB("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8","root","root");

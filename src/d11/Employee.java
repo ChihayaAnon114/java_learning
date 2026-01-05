@@ -8,8 +8,7 @@ public class Employee {
     //2）函数getAge()：返回随机产生的年龄。要求年龄在18-60岁之间
     //3）函数getSex()：返回随机产生的性别。要求只能返回男或者女
     //4）函数getScore()：返回随机产生的工资。要求工资在1000-4000元之间
-    //2、读取employee.txt文件中的200条信息，并显示在控制台上
-    //3、将年龄在40之内的员工信息挑选出来，写入文件newemployee.txt中，每条信息独立一行
+
     public static Integer getAge(){
         Random r=new Random();
         return (r.nextInt(42)+18);
@@ -18,7 +17,6 @@ public class Employee {
         String letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         Random r = new Random();
         StringBuilder sb = new StringBuilder(n);
-
         for (int i = 0; i < n; i++) {
             sb.append(letters.charAt(r.nextInt(letters.length())));
         }
@@ -28,5 +26,30 @@ public class Employee {
         StringBuffer name=new StringBuffer();
         name.append(getletter(8));name.append(' ');name.append(getletter(10));
         return name.toString();
+    }
+    public static int get_gender(){
+        Random r=new Random();
+        return r.nextInt(2);//0 male, 1 female
+    }
+    public static int get_salary(){
+        Random r=new Random();
+        return r.nextInt(3001)+1000;
+    }
+    public String name=null;
+    public String gender;
+    public int salary;
+    public int age;
+    Employee(){
+        this.name=getName();
+        this.age=getAge();
+        this.salary=get_salary();
+        if (get_gender()==0)
+            this.gender="M";
+        else this.gender="F";
+    }
+
+    @Override
+    public String toString() {
+        return name + ": gender: " + gender  + ", salary: " + salary + ", age=" + age;
     }
 }

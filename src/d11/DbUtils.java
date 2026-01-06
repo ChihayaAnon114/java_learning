@@ -28,9 +28,6 @@ public class DbUtils {
         return conn;
     }
 
-    public static void visualiseDB(Connection conn){
-
-    }
 
     public static void operateDB(Connection conn, String sql){
         //用于手动输入数据来执行数据库操作

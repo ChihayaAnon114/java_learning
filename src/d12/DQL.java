@@ -19,8 +19,8 @@ public class DQL {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String password = rs.getString("password");
-                String addtime = String.valueOf(rs.getTimestamp("regdate"));
-                QueryResult r=new QueryResult(id,name,password,addtime);
+                String regdate = String.valueOf(rs.getTimestamp("regdate"));
+                QueryResult r=new QueryResult(id,name,password,regdate);
                 query_res.put(id,r);
             }
         } catch (SQLException e) {

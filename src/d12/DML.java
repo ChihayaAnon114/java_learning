@@ -1,5 +1,6 @@
 package d12;
 import java.sql.*;
+import java.util.Map;
 import java.util.Objects;
 
 import static d12.DbUtils.operateDB;
@@ -58,8 +59,16 @@ public class DML {
         if (!DQL.existsByName(conn,tablename,oldname)){
             System.out.println("Record not existed");
         }else {
-            QueryResult queryRes= requireNonNull(DQL.queryByName(conn, tablename, oldname)).get(0);
-            Integer id=queryRes.getId();
+            Map<Integer, QueryResult> res =
+                    DQL.queryByName(conn, tablename, oldname);
+
+            if (res != null && res.isEmpty()) {
+                insertDB(conn,tablename,newname,password);
+            }
+
+            QueryResult qr = res.values().iterator().next();
+
+            Integer id= qr.getId();
             updateById(conn,tablename,id,newname,password);
         }
     }

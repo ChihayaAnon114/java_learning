@@ -6,6 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DbUtils {
+    static {
+        try {
+            connectToDB("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8","root","root");
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
     /**
      * 获取Connection对象
      */
@@ -96,10 +107,10 @@ public class DbUtils {
                 if (i < cols) System.out.print("\t");
             }
             System.out.println();
-//            for (int i = 1; i <= cols; i++) {
-//                System.out.print("--------");
-//                if (i < cols) System.out.print("\t");
-//            }
+            for (int i = 1; i <= cols; i++) {
+                System.out.print("--------");
+                if (i < cols) System.out.print("\t");
+            }
             System.out.println();
             while (rs.next()) {
                 for (int i = 1; i <= limit; i++) {
@@ -112,6 +123,8 @@ public class DbUtils {
             }
         }
     }
+
+//    public static void query()
 
     public static void dropTable(Connection conn, String tableName) throws SQLException {
         //删除表

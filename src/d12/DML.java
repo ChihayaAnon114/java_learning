@@ -1,8 +1,11 @@
 package d12;
 
 import java.sql.*;
+import java.util.Objects;
 
 import static d12.DbUtils.operateDB;
+import static java.util.Objects.requireNonNull;
+import static javax.swing.UIManager.get;
 
 //TODO:修改记录方法
 public class DML {
@@ -38,14 +41,22 @@ public class DML {
     }
 
     public static void updateById(Connection conn,String tablename,int id,String name, String password) throws SQLException {
+        //根据id修改记录
         if (!DQL.existsById(conn,tablename,id)){
             System.out.println("Record not existed");
         }else {
             String sql="update "+tablename+" set name="+name+",password= "+password+",regdate=now() where id="+id+";";
             operateDB(conn,sql);
-            DQL.printQuery();
+            System.out.println(DQL.queryById(conn,tablename,id));
         }
     }
-
+    public static void updateByName(Connection conn,String tablename,String oldname,String newname, String password) throws SQLException {
+        //根据名字修改记录
+        if (!DQL.existsByName(conn,tablename,oldname)){
+            System.out.println("Record not existed");
+        }else {
+            QueryResult queryRes= (QueryResult) DQL.queryByName(conn, tablename, oldname).get(0);
+        }
+    }
 
 }

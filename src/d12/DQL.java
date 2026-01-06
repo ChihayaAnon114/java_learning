@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class DQL {
-    public static Map operateQuery(Connection conn,String sql) {
+    public static Map<Integer,QueryResult> operateQuery(Connection conn,String sql) {
         //基本查询方法，返回序号与其他信息对应的map
         //不需要接入table name，因为表名等已经在sql语句中了
         PreparedStatement pmst = null;
@@ -34,12 +34,11 @@ public class DQL {
         return query_res;
     }
 
-    public static Map queryAll(Connection conn,String tablename){
+    public static Map<Integer,QueryResult> queryAll(Connection conn,String tablename){
         //不打印的全部查询方法，返回序号与其他信息对应的map
         String sql = "select * from "+tablename;
         PreparedStatement pmst = null;
         ResultSet rs = null;
-
         Map<Integer, QueryResult> query_res = new TreeMap<>();
         try {
             pmst = conn.prepareStatement(sql);
@@ -82,8 +81,21 @@ public class DQL {
             throw new RuntimeException(e);
         }
     }
-    public static Map queryById(Connection conn,String tablename,int id){
+    public static Map<Integer,QueryResult> queryById(Connection conn,String tablename,int id){
         String sql="SELECT * from " +tablename+"where id = "+id+";";
+        try {
+            Map result=operateQuery(conn,sql);
+            if (result.isEmpty()){
+                System.out.println("record not existed");
+                return null;
+            }
+            else return result;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static Map<Integer,QueryResult> queryByName(Connection conn,String tablename,String name){
+        String sql="SELECT * from " +tablename+"where name = "+name+";";
         try {
             Map result=operateQuery(conn,sql);
             if (result.isEmpty()){
@@ -140,6 +152,15 @@ public class DQL {
             printQuery(conn,sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    public static int count(Connection conn, String tableName) throws SQLException {
+        //查询记录条数
+        String sql = "SELECT COUNT(*) FROM " + tableName;
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            rs.next();
+            return rs.getInt(1);
         }
     }
 }

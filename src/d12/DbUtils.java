@@ -81,15 +81,7 @@ public class DbUtils {
     }
 
 
-    public static int count(Connection conn, String tableName) throws SQLException {
-        //返回记录条数
-        String sql = "SELECT COUNT(*) FROM " + tableName;
-        try (Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-            rs.next();
-            return rs.getInt(1);
-        }
-    }
+
 
     public static void main(String[] args) {
         Connection conn= connectToDB("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8","root","root");

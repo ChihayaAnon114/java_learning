@@ -1,5 +1,4 @@
 package d12;
-
 import java.sql.*;
 import java.util.Objects;
 

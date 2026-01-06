@@ -1,9 +1,4 @@
 package d12;
-
-import d7.Date;
-
-import java.sql.Timestamp;
-
 public class QueryResult {
     int id=0;
     public String name=null;

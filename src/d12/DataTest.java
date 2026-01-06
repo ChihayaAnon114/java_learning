@@ -1,9 +1,12 @@
-package d11;
+package d12;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Random;
-import static d11.DbUtils.*;
+
+import static d12.DQL.printQuery;
+import static d12.DbUtils.*;
+
 
 public class DataTest {
 
@@ -34,7 +37,6 @@ public class DataTest {
         Connection conn= connectToDB("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8","root","root");
 //        clearTable(conn,"tb_user");
         for (int i = 0; i < 50; i++) {
-
             String sql=null;
             sql="insert into tb_user values(default,'"+randomLetters(5)+"','"+randomNums(10)+"',now())";
             operateDB(conn,sql);

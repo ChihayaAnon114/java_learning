@@ -55,8 +55,9 @@ public class DML {
         if (!DQL.existsByName(conn,tablename,oldname)){
             System.out.println("Record not existed");
         }else {
-            QueryResult queryRes= (QueryResult) DQL.queryByName(conn, tablename, oldname).get(0);
+            QueryResult queryRes= requireNonNull(DQL.queryByName(conn, tablename, oldname)).get(0);
+            Integer id=queryRes.getId();
+            updateById(conn,tablename,id,newname,password);
         }
     }
-
 }

@@ -19,7 +19,7 @@ public class DQL {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String password = rs.getString("password");
-                String addtime = String.valueOf(rs.getTimestamp("addtime"));
+                String addtime = String.valueOf(rs.getTimestamp("regdate"));
                 QueryResult r=new QueryResult(id,name,password,addtime);
                 query_res.put(id,r);
             }
@@ -32,7 +32,49 @@ public class DQL {
             throw new RuntimeException(e);
         }
         return query_res;
+
     }
+    public static Map<Integer, QueryResult> operateQuery(
+            Connection conn,
+            String sql,
+            Object... params
+    ) throws SQLException {
+
+        PreparedStatement pmst = null;
+        ResultSet rs = null;
+        Map<Integer, QueryResult> query_res = new TreeMap<>();
+        pmst = conn.prepareStatement(sql);
+        rs = pmst.executeQuery();
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // 1. 绑定参数（从 1 开始）
+            if (params != null) {
+                for (int i = 0; i < params.length; i++) {
+                    ps.setObject(i + 1, params[i]);
+                }
+            }
+
+            // 2. 执行查询（注意：没有 sql 参数）
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String regdate = String.valueOf(rs.getTimestamp("regdate"));
+                QueryResult r=new QueryResult(id,name,password,regdate);
+                query_res.put(id,r);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            pmst.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return query_res;
+    }
+
 
     public static Map<Integer,QueryResult> queryAll(Connection conn,String tablename){
         //不打印的全部查询方法，返回序号与其他信息对应的map
@@ -47,8 +89,8 @@ public class DQL {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String password = rs.getString("password");
-                String addtime = String.valueOf(rs.getTimestamp("addtime"));
-                QueryResult r=new QueryResult(id,name,password,addtime);
+                String regdate = String.valueOf(rs.getTimestamp("regdate"));
+                QueryResult r=new QueryResult(id,name,password, regdate);
                 query_res.put(id,r);
             }
         } catch (SQLException e) {
@@ -60,11 +102,10 @@ public class DQL {
     public static boolean existsById(Connection conn, String tableName, int id)
             throws SQLException {
         //判断是否存在某数据
-        String sql = "SELECT 1 FROM " + tableName + " WHERE id = " + id + " LIMIT 1";
+        String sql = "SELECT * FROM " + tableName + " WHERE id = " + id + " LIMIT 1;";
+
         try{
-            if(operateQuery(conn, sql).isEmpty())
-                return true;
-            else return false;
+            return !operateQuery(conn, sql).isEmpty();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -72,11 +113,9 @@ public class DQL {
     public static boolean existsByName(Connection conn, String tableName, String name)
             throws SQLException {
         //判断是否存在某数据
-        String sql = "SELECT 1 FROM " + tableName + " WHERE name = " + name + " LIMIT 1";
+        String sql = "SELECT * FROM " + tableName+ " WHERE name = '" + name + "' LIMIT 1;";
         try{
-            if(operateQuery(conn,sql).isEmpty())
-                return true;
-            else return false;
+            return !operateQuery(conn, sql).isEmpty();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -84,7 +123,7 @@ public class DQL {
     public static Map<Integer,QueryResult> queryById(Connection conn,String tablename,int id){
         String sql="SELECT * from " +tablename+"where id = "+id+";";
         try {
-            Map result=operateQuery(conn,sql);
+            Map<Integer, QueryResult> result=operateQuery(conn,sql);
             if (result.isEmpty()){
                 System.out.println("record not existed");
                 return null;
@@ -95,7 +134,7 @@ public class DQL {
         }
     }
     public static Map<Integer,QueryResult> queryByName(Connection conn,String tablename,String name){
-        String sql="SELECT * from " +tablename+"where name = "+name+";";
+        String sql = "SELECT * FROM " + tablename + " WHERE name = '" + name + "';";
         try {
             Map result=operateQuery(conn,sql);
             if (result.isEmpty()){
@@ -111,7 +150,7 @@ public class DQL {
     public static void printQuery(Connection conn, String sql) throws SQLException {
         //按照需求打印
         try (PreparedStatement st = conn.prepareStatement(sql);
-             ResultSet rs = st.executeQuery(sql)) {
+             ResultSet rs = st.executeQuery()) {
 
             ResultSetMetaData md = rs.getMetaData();
             int cols = md.getColumnCount();

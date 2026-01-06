@@ -22,7 +22,8 @@ public class DML {
 
     public static void insertDB(Connection conn,String tablename,String name,String psw) throws SQLException {
         //插入新记录
-        String sql="insert into "+tablename+" values(default, "+name+","+psw+",now())";
+        String sql = "INSERT INTO " + tablename + " VALUES (DEFAULT, '" + name + "', '" + psw + "', NOW())";
+
         try {
             operateDB(conn,sql);
         } catch (Exception e) {
@@ -31,7 +32,7 @@ public class DML {
     }
     public static void deleteById(Connection conn,String tablename,int id){
         //删除一个指定记录
-        String sql="DELETE FROM "+tablename+"WHERE id ="+id;
+        String sql="DELETE FROM "+tablename+" WHERE id ="+id;
         try {
             operateDB(conn,sql);
         } catch (Exception e) {
@@ -44,7 +45,10 @@ public class DML {
         if (!DQL.existsById(conn,tablename,id)){
             System.out.println("Record not existed");
         }else {
-            String sql="update "+tablename+" set name="+name+",password= "+password+",regdate=now() where id="+id+";";
+            String sql = "UPDATE " + tablename
+                    + " SET name = '" + name + "', password = '" + password + "', regdate = NOW()"
+                    + " WHERE id = " + id + ";";
+
             operateDB(conn,sql);
             System.out.println(DQL.queryById(conn,tablename,id));
         }

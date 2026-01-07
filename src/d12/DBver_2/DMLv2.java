@@ -25,7 +25,7 @@ public class DMLv2 {
 
     public static void insertDB(Connection conn,UserRecord record) throws SQLException {
         //插入新记录
-        String sql = "INSERT INTO usertable VALUES (DEFAULT, '" + record.getUsername() + "', '" + record.getPassword() +"', '" +record.getAge()+ "', NOW())";
+        String sql = "INSERT INTO usertable VALUES ( '"+record.getID()+"', '" + record.getUsername() + "', '" + record.getPassword() +"', '" +record.getAge()+ "', NOW())";
 
         try {
             operateDB(conn,sql);

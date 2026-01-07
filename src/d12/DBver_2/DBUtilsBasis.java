@@ -20,7 +20,6 @@ public class DBUtilsBasis {
      */
     public static Connection connectToDB(String className, String url, String user, String psw){
         //直接连接数据库
-        //类创建时自动连接了这个数据库，因此不需要手动连接了
         Connection conn = null;
         try {
             //加载jdbc驱动
@@ -41,7 +40,6 @@ public class DBUtilsBasis {
 
     public static void operateDB(Connection conn, String sql){
         //用于手动输入数据来执行数据库操作
-        //实际上相当于DML
         try (PreparedStatement pmst = conn.prepareStatement(sql)) {
             int res = pmst.executeUpdate();
             if (res > 0) {

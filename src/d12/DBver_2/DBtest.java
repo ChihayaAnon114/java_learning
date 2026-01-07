@@ -6,6 +6,7 @@ import java.util.Random;
 
 import static d12.DBver_2.DMLv2.clearTable;
 import static d12.DBver_2.DMLv2.insertDB;
+import static d12.DQL.printAll;
 import static d12.DQL.printQuery;
 import static d12.DbUtils.*;
 
@@ -31,17 +32,20 @@ public class DBtest {
         return sb.toString();
     }
     public static void main(String[] args) throws SQLException {
-        //随机生成50条记录
         Connection conn= connectToDB("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8","root","root");
         clearTable(conn,"usertable");
-        Random r=new Random();
+        Random r=new Random();Management m=new Management(conn);
+        //手动注册
+        m.register();
         for (int i = 0; i < 50; i++) {
-            String sql=null;
-            UserRecord rec=new UserRecord(i+5,randomLetters(10),randomNums(12),r.nextInt(40)+20);
-            insertDB(conn,rec);
+            //随机生成50条记录
+            m.register(randomLetters(10),randomLetters(10), r.nextInt(40)+20);
         }
-        printQuery(conn,"SELECT * FROM usertable");
 
+        DMLv2.deleteById(conn,5);
+        m.login();
+
+        DQLv2.printAll(conn);
         connClose(conn);
     }
 }

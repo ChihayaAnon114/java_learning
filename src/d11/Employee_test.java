@@ -22,6 +22,7 @@ public class Employee_test {
         for (Integer i = 0; i < 50; i++) {
             Employee emp = new Employee();
             String num = (i + 1) + " : ";
+
             rdf.write(num.getBytes());
             rdf.write(' ');
             rdf.write(emp.toString().getBytes());
@@ -31,7 +32,7 @@ public class Employee_test {
 //        rdf.close();
 //        rdf.setLength(0);  // 清空文件
 
-        File file2=new File("C:\\Users\\user\\Desktop\\java_learning\\src\\d11\\new_employee.txt");
+        File file2=new File("new_employee.txt");
         rdf_2 = new RandomAccessFile(file2, "rw");
         file2.createNewFile();
         int j=1;
@@ -43,7 +44,7 @@ public class Employee_test {
             if (emp_.age<40){
                 String num = (j) + " : ";
 
-                rdf_2.write("用户".getBytes());
+                rdf_2.write("新员工".getBytes());
                 rdf_2.write(num.getBytes());
                 rdf_2.write(' ');
                 rdf_2.write(emp_.toString().getBytes());

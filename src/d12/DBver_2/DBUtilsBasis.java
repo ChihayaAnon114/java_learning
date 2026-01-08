@@ -3,17 +3,6 @@ package d12.DBver_2;
 import java.sql.*;
 
 public class DBUtilsBasis {
-    static {
-        try {
-            connectToDB("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8","root","root");
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        //静态代码块，创建该类的时候就连接到数据库。
-        //使用完毕需要手动关闭数据库连接
-        //！新表名是usertable
-    }
 
     /**
      * 获取Connection对象

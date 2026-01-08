@@ -28,8 +28,8 @@ public class Employee_test {
             rdf.writeBytes("\n");
             emp_lst.add(emp);
         }
-        rdf.close();
-        rdf.setLength(0);  // 清空文件
+//        rdf.close();
+//        rdf.setLength(0);  // 清空文件
 
         File file2=new File("C:\\Users\\user\\Desktop\\java_learning\\src\\d11\\new_employee.txt");
         rdf_2 = new RandomAccessFile(file2, "rw");
@@ -38,8 +38,12 @@ public class Employee_test {
         rdf_2.setLength(0);
         for (int i = 0; i < emp_lst.size(); i++) {
             Employee emp_ =emp_lst.get(i);
+
+
             if (emp_.age<40){
                 String num = (j) + " : ";
+
+                rdf_2.write("用户".getBytes());
                 rdf_2.write(num.getBytes());
                 rdf_2.write(' ');
                 rdf_2.write(emp_.toString().getBytes());

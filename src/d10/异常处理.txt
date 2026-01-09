@@ -1,0 +1,17 @@
+error/exception: 能够处理的是后者，runtime-exception包括除以0、空指针、访问越界等
+处理方式：
+    try{
+    ……(无论是否出现异常进行的正常操作);
+    }catch(捕获对应异常){
+    //如果没有捕获到仍然会造成程序中断。
+    //可以用Exception（通用异常基类） e（形参）表示通用的异常名。
+    //可以以这个形式作为嵌套最外层以捕获任何其他类型的异常
+    出现异常的处理
+    }finally{
+    无论是否出现异常都会进行
+    }
+
+
+手动抛出异常：
+    throw ex;<-异常名      <-创建自定义异常Exception ex=new Exception
+    调用：同try-catch，可以使用ex.getMessage()设定报错信息。

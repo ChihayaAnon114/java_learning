@@ -9,15 +9,12 @@ public class t14 {
     并保证奇数和奇数，偶数和偶数之间的相对位置不变,
     每次只和前面一个数交换位置。或者利用辅助数组
      */
+    public static ArrayList<Integer> sort(ArrayList list){
+
+    }
+
     public static void main(String[] args) {
-        List<Integer>nums=new ArrayList<>(10);
-        Scanner input=new Scanner(System.in);
-        for (int i = 0; i < 10; i++) {
-            nums.add(input.nextInt());
-        }
-        int temp=0;
-        List num1=new ArrayList<>();
-        List num2=new ArrayList<>();
+
         
     }
 }

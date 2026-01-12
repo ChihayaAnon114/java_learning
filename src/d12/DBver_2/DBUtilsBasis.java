@@ -1,0 +1,64 @@
+package d12.DBver_2;
+
+import java.sql.*;
+
+public class DBUtilsBasis {
+
+    /**
+     * 获取Connection对象
+     */
+    public static Connection connectToDB(String className, String url, String user, String psw){
+        //直接连接数据库
+        Connection conn = null;
+        try {
+            //加载jdbc驱动
+            Class.forName(className);
+            conn = DriverManager.getConnection(url,
+                    user,
+                    psw);
+            if(conn!=null){
+                System.out.println("CONNECTED");
+            }
+            else System.out.println("connection failed");
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return conn;
+    }
+
+
+    public static void operateDB(Connection conn, String sql){
+        //用于手动输入数据来执行数据库操作
+        try (PreparedStatement pmst = conn.prepareStatement(sql)) {
+            int res = pmst.executeUpdate();
+            if (res > 0) {
+                System.out.println(" add success");//检验操作是否完成
+
+            }else System.out.println("add failed");
+        } catch (SQLException e) {
+            System.out.println("异常:" + e.getMessage());//当出现任何异常
+        }
+    }
+    public static void connClose(Connection conn, PreparedStatement p, Statement s){
+        //关闭连接
+        try {
+            conn.close();
+            System.out.println("connect closed");
+            if (p!=null)
+                p.close();
+            if (s!=null)
+                s.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }//实际上在架构设计上，pmst在事务中均已经关闭，因此暂时并不需要
+    }
+    public static void connClose(Connection conn){
+        //用于直接关闭连接
+        try {
+            conn.close();
+            System.out.println("connect closed");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
